@@ -1,12 +1,11 @@
-export async function insertPassenger(req, res) {
-    const {firstName, lastName} = req.body;
-  
-    try {
-      //await employeesRepository.insert({ ...employee, grossSalary: salaryInCents });
-  
-      res.sendStatus(201);
-    } catch (error) {
-      console.log(error);
-      return res.sendStatus(500);
-    }
-  }
+import httpStatus from "http-status";
+import { passengerService } from "../services/passenger.services.js";
+
+async function create(req, res) {
+  const { firstName, lastName } = req.body;
+
+  await passengerService.create(firstName, lastName);
+  res.sendStatus(httpStatus.CREATED);
+}
+
+export const passengerController = { create };

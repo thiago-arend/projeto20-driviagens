@@ -1,4 +1,4 @@
-import httpStatus from "http-status";
+import { errors } from "../errors/errors.js";
 
 export function validateSchema(schema) {
 
@@ -6,8 +6,10 @@ export function validateSchema(schema) {
         const validation = schema.validate(req.body, { abortEarly: false });
 
         if (validation.error) {
-            const errors = validation.error.details.map(detail => detail.message);
-            return res.status(httpStatus.UNPROCESSABLE_ENTITY).send(errors);
+            let errorMessage = "";
+            validation.error.details.forEach(det => errorMessage += det.message + " ");
+
+            throw errors.joi(errorMessage);
         }
 
         next();
