@@ -12,4 +12,18 @@ function conflict(resource = "Item") {
     }
 }
 
-export const errors =  { joi, conflict };
+function notFound(resource = "Item") {
+    return {
+        type: "notFoundError",
+        message: `${resource} não encontrado!`
+    }
+}
+
+function originDestinationConflict() {
+    return {
+        type: "originDestinationConflict",
+        message: "Os ids da origem e do destino devem ser diferentes!"
+    }
+}
+
+export const errors =  { joi, conflict, originDestinationConflict, notFound };
