@@ -5,4 +5,11 @@ function joi(message) {
     }
 }
 
-export const errors =  { joi };
+function conflict(resource = "Item") {
+    return {
+        type: "conflictError",
+        message: `${resource} já existe!`
+    }
+}
+
+export const errors =  { joi, conflict };
