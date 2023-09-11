@@ -15,9 +15,16 @@ async function create(origin, destination, date) {
     await flightRepository.create(origin, destination, date);
 }
 
+async function getAll(origin, destination, smallerDate, biggerDate) {
+    if (smallerDate > biggerDate) throw errors.unmatchedDatas();
+
+    const flights = await flightRepository.getAll(origin, destination, smallerDate, biggerDate);
+    return flights;
+}
+
 async function getFlightById(id) {
     const flight = await flightRepository.getFlightById(id);
     return flight;
 }
 
-export const flightService = { create, getFlightById };
+export const flightService = { create, getFlightById, getAll };

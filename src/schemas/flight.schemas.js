@@ -27,3 +27,24 @@ export const flightSchema = joi.object({
         'date.empty': `O campo "date" não pode ser vazio.`
     })
 });
+
+export const getFlightsSchema = joi.object({
+    origin: joi.string().min(2).max(50).messages({
+        'string.base': `"origin" é um campo do tipo texto.`,
+        'string.min': `"origin" deve ter no mínimo 2 caracteres.`,
+        'string.max': `"origin" deve ter no máximo 50 caracteres.`
+    }),
+    destination: joi.string().min(2).max(50).messages({
+        'string.base': `"destination" é um campo do tipo texto.`,
+        'string.min': `"destination" deve ter no mínimo 2 caracteres.`,
+        'string.max': `"destination" deve ter no máximo 50 caracteres.`
+    }),
+    smallerDate: joi.date().format("DD-MM-YYYY").messages({
+        'date.base': `"smallerDate" é um campo do tipo data.`,
+        'date.format': `"smallerDate" deve ter o formato dd-mm-aaaa.`,
+    }),
+    biggerDate: joi.date().format("DD-MM-YYYY").messages({
+        'date.base': `"biggerDate" é um campo do tipo data.`,
+        'date.format': `"biggerDate" deve ter o formato dd-mm-aaaa.`,
+    })
+}).and('smallerDate', 'biggerDate').messages({'object.and': 'Apenas uma das datas foi informada. Preencha ambos os campos "smallerDate" e "biggerDate".'});

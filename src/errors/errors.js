@@ -19,6 +19,13 @@ function notFound(resource = "Item") {
     }
 }
 
+function unmatchedDatas() {
+    return {
+        type: "unmatchedDatasError",
+        message: `A data à esquerda do intervalo não pode ser maior que a data à direita do intervalo!`
+    }
+}
+
 function originDestinationConflict() {
     return {
         type: "originDestinationConflict",
@@ -26,4 +33,4 @@ function originDestinationConflict() {
     }
 }
 
-export const errors =  { joi, conflict, originDestinationConflict, notFound };
+export const errors =  { joi, conflict, originDestinationConflict, notFound, unmatchedDatas };

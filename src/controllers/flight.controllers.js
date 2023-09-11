@@ -8,4 +8,11 @@ async function create(req, res) {
   res.sendStatus(httpStatus.CREATED);
 }
 
-export const flightController = { create };
+async function getAll(req, res) {
+  const { origin, destination, smallerDate, biggerDate } = res.locals.parsedQuery;
+
+  const flights = await flightService.getAll(origin, destination, smallerDate, biggerDate);
+  res.status(httpStatus.OK).send(flights);
+}
+
+export const flightController = { create, getAll };
