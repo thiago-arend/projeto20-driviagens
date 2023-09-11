@@ -23,5 +23,5 @@ export default function errorHandler(error, req, res, next) {
         return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error.message);
     }
 
-    return res.status(httpStatus.INTERNAL_SERVER_ERROR).send("Ocorreu um erro desconhecido!")
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).send("Sorry, something went wrong!");
 }
