@@ -6,10 +6,10 @@ import { passengerService } from "./passenger.services.js";
 async function create(passengerId, flightId) {
 
     const passenger = await passengerService.getPassengerById(passengerId);
-    if (passenger === undefined) throw errors.notFound("Passageiro");
+    if (passenger === undefined) throw errors.notFound("Passenger");
 
     const flight = await flightService.getFlightById(flightId);
-    if (flight === undefined) throw errors.notFound("Voô");
+    if (flight === undefined) throw errors.notFound("Flight");
 
     await travelRepository.create(passengerId, flightId);
 }

@@ -3,7 +3,7 @@ import { errors } from "../errors/errors.js";
 
 async function create(name) {
     const city = await get(name);
-    if (city) throw errors.conflict("Cidade");
+    if (city) throw errors.conflict("City");
 
     await cityRepository.create(name);
 }
