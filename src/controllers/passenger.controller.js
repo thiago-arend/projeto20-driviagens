@@ -8,4 +8,11 @@ async function create(req, res) {
   res.sendStatus(httpStatus.CREATED);
 }
 
-export const passengerController = { create };
+async function getPassengersAndTravels(req, res) {
+  const { name } = req.query;
+
+  const results = await passengerService.getPassengersAndTravels(name);
+  res.status(httpStatus.OK).send(results);
+}
+
+export const passengerController = { create, getPassengersAndTravels };

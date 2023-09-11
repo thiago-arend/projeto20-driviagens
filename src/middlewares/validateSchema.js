@@ -26,6 +26,8 @@ export function validateQuerySchema(schema) {
         delete parsedQuery["smaller-date"];
         delete parsedQuery["bigger-date"];
 
+        res.locals.parsedQuery = parsedQuery;
+
         const validation = schema.validate(parsedQuery, { abortEarly: false });
 
         if (validation.error) {

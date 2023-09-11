@@ -8,29 +8,36 @@ function joi(message) {
 function conflict(resource = "Item") {
     return {
         type: "conflictError",
-        message: `${resource} já existe!`
+        message: `${resource} already exists!`
     }
 }
 
 function notFound(resource = "Item") {
     return {
         type: "notFoundError",
-        message: `${resource} não encontrado!`
+        message: `${resource} not found!`
     }
 }
 
 function unmatchedDatas() {
     return {
         type: "unmatchedDatasError",
-        message: `A data à esquerda do intervalo não pode ser maior que a data à direita do intervalo!`
+        message: `The date to the left of the range cannot be greater than the date to the right of the range!`
     }
 }
 
 function originDestinationConflict() {
     return {
         type: "originDestinationConflict",
-        message: "Os ids da origem e do destino devem ser diferentes!"
+        message: "Origin and destination ids must be different!"
     }
 }
 
-export const errors =  { joi, conflict, originDestinationConflict, notFound, unmatchedDatas };
+function tooManyResults() {
+    return {
+        type: "tooManyResults",
+        message: "Too many results!"
+    }
+}
+
+export const errors =  { joi, conflict, originDestinationConflict, notFound, unmatchedDatas, tooManyResults };
