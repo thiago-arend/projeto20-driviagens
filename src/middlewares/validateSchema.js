@@ -3,19 +3,30 @@ import { errors } from "../errors/errors.js";
 export function validateSchema(schema) {
 
     return (req, res, next) => {
-        let parsedQuery = undefined;
 
-        if (req.query) { // faz o parsing dos dados que chegam da query
-            parsedQuery = { ...req.query };
-            parsedQuery.smallerDate = parsedQuery["smaller-date"]; // parsing do get /flights
-            parsedQuery.biggerDate = parsedQuery["bigger-date"];
-            delete parsedQuery["smaller-date"];
-            delete parsedQuery["bigger-date"];
+        const validation = schema.validate(req.body, { abortEarly: false });
 
-            res.locals.parsedQuery = parsedQuery;
+        if (validation.error) {
+            let errorMessage = "";
+            validation.error.details.forEach(det => errorMessage += det.message + " ");
+
+            throw errors.joi(errorMessage);
         }
 
-        const validation = schema.validate(( parsedQuery ? parsedQuery : req.body ), { abortEarly: false });
+        next();
+    }
+}
+
+export function validateQuerySchema(schema) {
+
+    return (req, res, next) => {
+        let parsedQuery = { ...req.query };
+        parsedQuery.smallerDate = parsedQuery["smaller-date"]; // parsing do get /flights
+        parsedQuery.biggerDate = parsedQuery["bigger-date"];
+        delete parsedQuery["smaller-date"];
+        delete parsedQuery["bigger-date"];
+
+        const validation = schema.validate(parsedQuery, { abortEarly: false });
 
         if (validation.error) {
             let errorMessage = "";
