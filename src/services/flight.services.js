@@ -12,7 +12,7 @@ async function create(origin, destination, date) {
     const destinationCity = await cityRepository.getById(destination);
     if (destinationCity === undefined) throw errors.notFound("Id");
 
-    await flightRepository.create(origin, destination, date);
+    await flightRepository.create(origin, new Date(destination), date);
 }
 
 async function getAll(origin, destination, smallerDate, biggerDate) {
