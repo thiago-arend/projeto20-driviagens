@@ -1,6 +1,7 @@
 import { errors } from "../errors/errors.js";
 import { cityRepository } from "../repositories/city.repositories.js";
 import { flightRepository } from "../repositories/flight.repositories.js";
+import dayjs from "dayjs";
 
 async function create(origin, destination, date) {
 
@@ -12,7 +13,7 @@ async function create(origin, destination, date) {
     const destinationCity = await cityRepository.getById(destination);
     if (destinationCity === undefined) throw errors.notFound("Id");
 
-    await flightRepository.create(origin, new Date(destination), date);
+    await flightRepository.create(origin, dayjs(destination).format("YYYY-MM-DD"), date);
 }
 
 async function getAll(origin, destination, smallerDate, biggerDate) {
